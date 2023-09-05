@@ -1,25 +1,38 @@
 'use client'
 
+import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import Log from './Log'
 import TodoList from './TodoList'
 
 export default function Home() {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
   const [todoText, setTodoText] = useState('')
   const [todoList, setTodoList] = useState([])
   const [logList, setLogList] = useState([])
+
+  const onSubmit = (data) => console.log(data)
 
   return (
     <>
       <div>
         <main>
-          <input
-            type='text'
-            value={todoText}
-            onChange={(event) => {
-              setTodoText(event.target.value)
-            }}
-          />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <input
+              type='text'
+              value={todoText}
+              {...register('todoName')}
+              onChange={(event) => {
+                setTodoText(event.target.value)
+              }}
+            />
+          </form>
           <button
             onClick={(event) => {
               const log = {
