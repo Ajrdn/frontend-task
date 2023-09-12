@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useContext } from 'react'
-import LogListContext from './LogListContext'
+import { useState } from 'react'
+import LogListStore from './LogListStore'
 
 export default function Todo({todo}) {
   const [done, setDone] = useState(false)
-  const setLogList = useContext(LogListContext)
+  const setLogList = LogListStore(state => state.setLogList)
 
   return (
     <div>
@@ -19,7 +19,7 @@ export default function Todo({todo}) {
           }
 
           setDone(prev => !prev)
-          setLogList(prev => [...prev, JSON.stringify(log)])
+          setLogList(JSON.stringify(log))
         }}>완료</button>
       </div>
       <style jsx>{`
