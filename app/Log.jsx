@@ -1,6 +1,9 @@
-import React from 'react'
+import {React, useContext} from 'react'
+import LogListContext from './LogListContext'
 
-export default function Log({logList}) {
+export default function Log() {
+  const logList = useContext(LogListContext)
+
   return (
     <div>
       {logList.map((log, index) =>
