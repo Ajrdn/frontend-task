@@ -1,8 +1,8 @@
-import {React, useContext} from 'react'
-import LogListContext from './LogListContext'
+import React from 'react'
+import LogListStore from './LogListStore'
 
 export default function Log() {
-  const logList = useContext(LogListContext)
+  const logList = LogListStore(state => state.logList)
 
   return (
     <div>
