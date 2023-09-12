@@ -1,11 +1,14 @@
-import React from 'react'
+import {React, useContext} from 'react'
 import Todo from './Todo'
+import TodoListContext from './TodoListContext'
 
-export default function TodoList({todoList, setLogList}) {
+export default function TodoList({setLogList}) {
+  const todoList = useContext(TodoListContext)
+
   return (
     todoList.map((todo, index) => (
       <Todo
-        key={`${todo} + ${index}`} 
+        key={`${todo} + ${index}`}
         todo={todo}
         setLogList={setLogList}
       />
