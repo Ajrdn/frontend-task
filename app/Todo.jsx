@@ -1,9 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import LogListContext from './LogListContext'
 
-export default function Todo({todo, setLogList}) {
+export default function Todo({todo}) {
   const [done, setDone] = useState(false)
+  const setLogList = useContext(LogListContext)
 
   return (
     <div>
