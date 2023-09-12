@@ -1,11 +1,10 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { createContext, useEffect, useState } from 'react'
 import Log from './Log'
 import TodoList from './TodoList'
-import TodoListContext from './TodoListContext'
-import LogListContext from './LogListContext'
+import todoListStore from './TodoListStore'
+import LogListStore from './LogListStore'
 
 export default function Home() {
   const {
@@ -14,13 +13,8 @@ export default function Home() {
     watch,
     formState: { errors },
   } = useForm()
-
-  const [todoList, setTodoList] = useState([])
-  const [logList, setLogList] = useState([])
-
-  useEffect(() => {
-
-  }, [todoList])
+  const setTodoList = todoListStore(state => state.setTodoList)
+  const setLogList = LogListStore(state => state.setLogList)
 
   const onAdd = (data) => {
     const log = {
@@ -31,8 +25,8 @@ export default function Home() {
       status: 'added',
     }
 
-    setTodoList((prev) => [...prev, data.todoName])
-    setLogList((prev) => [...prev, JSON.stringify(log)])
+    setTodoList(data.todoName)
+    setLogList(JSON.stringify(log))
   }
 
   return (
@@ -51,16 +45,9 @@ export default function Home() {
               입력
             </button>
           </form>
-          <TodoListContext.Provider value={todoList}>
-            <LogListContext.Provider value={setLogList}>
-              
-              <TodoList />
-            </LogListContext.Provider>
-          </TodoListContext.Provider>
+          <TodoList />
         </main>
-        <LogListContext.Provider value={logList}>
-          <Log />
-        </LogListContext.Provider>
+        <Log />
       </div>
       <style jsx>{`
         div {
