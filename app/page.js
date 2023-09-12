@@ -1,9 +1,11 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useEffect, useState } from 'react'
+import { createContext, useEffect, useState } from 'react'
 import Log from './Log'
 import TodoList from './TodoList'
+import TodoListContext from './TodoListContext'
+import LogListContext from './LogListContext'
 
 export default function Home() {
   const {
@@ -49,14 +51,21 @@ export default function Home() {
               입력
             </button>
           </form>
-          <TodoList todoList={todoList} setLogList={setLogList} />
+          <TodoListContext.Provider value={todoList}>
+            <LogListContext.Provider value={setLogList}>
+              
+              <TodoList />
+            </LogListContext.Provider>
+          </TodoListContext.Provider>
         </main>
-        <Log logList={logList} />
+        <LogListContext.Provider value={logList}>
+          <Log />
+        </LogListContext.Provider>
       </div>
       <style jsx>{`
         div {
-          display: flex
-          justify-content: space-evenly
+          display: flex;
+          justify-content: space-evenly;
         }
 
         span {
